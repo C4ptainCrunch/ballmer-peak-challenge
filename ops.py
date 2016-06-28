@@ -1,7 +1,7 @@
 import requests
 
 BASE = "http://172.23.218.41:5000/video_poker/api/"
-TOKEN = ""
+TOKEN = "cbd16d6cefa6hgcb1c46"
 
 def info():
     r = requests.get(BASE + "team/" + TOKEN)
