@@ -79,3 +79,40 @@ def hands():
         triples,
         two_pairs
     ]
+
+HANDS_TYPES = hands()
+
+def api_to_hand(j):
+    return frozenset([
+        (card['rank'], card['suit']) for card in j['hand']
+    ])
+
+def what_to_drop(my_hand):
+    for i, tp in enumerate(HANDS_TYPES):
+        for hand in tp:
+            diff = hand - my_hand
+            if len(diff) <= 1:
+                return my_hand - hand
+
+    for i, tp in enumerate(HANDS_TYPES):
+        for hand in tp:
+            diff = hand - my_hand
+            if len(diff) <= 2:
+                return my_hand - hand
+
+    for i, tp in enumerate(HANDS_TYPES):
+        for hand in tp:
+            diff = hand - my_hand
+            if len(diff) <= 3:
+                return my_hand - hand
+
+    return my_hand
+
+
+def drop_to_index(hand, drop):
+    indexes = []
+    for card in hand['hand']:
+        if (card['rank'], card['suit']) in drop:
+            indexes.append(card['index'])
+
+    return indexes
